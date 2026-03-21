@@ -1,0 +1,942 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Mahima Sachdeva — Software Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --surface: #111118;
+    --border: #1e1e2e;
+    --accent: #6ee7b7;
+    --accent2: #a78bfa;
+    --text: #e2e8f0;
+    --muted: #94a3b8;
+    --tag-bg: #1a1a2e;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* ── NOISE TEXTURE OVERLAY ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.4;
+  }
+
+  /* ── GRID ── */
+  .container { max-width: 900px; margin: 0 auto; padding: 0 2rem; }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 1.2rem 0;
+    background: rgba(10,10,15,0.85);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+  }
+  nav .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .nav-logo {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.85rem;
+    color: var(--accent);
+    letter-spacing: 0.05em;
+    text-decoration: none;
+  }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.78rem;
+    color: var(--muted);
+    text-decoration: none;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--accent); }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding-top: 5rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-glow {
+    position: absolute;
+    top: -20%;
+    right: -10%;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(110,231,183,0.07) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-glow2 {
+    position: absolute;
+    bottom: 10%;
+    left: -15%;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(167,139,250,0.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.2s forwards;
+  }
+  .hero h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(3rem, 7vw, 5.5rem);
+    line-height: 1.05;
+    font-weight: 400;
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.4s forwards;
+  }
+  .hero h1 em {
+    font-style: italic;
+    color: var(--accent2);
+  }
+  .hero-desc {
+    max-width: 520px;
+    font-size: 1.05rem;
+    color: var(--muted);
+    line-height: 1.8;
+    margin-bottom: 2.5rem;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.6s forwards;
+  }
+  .hero-cta {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.8s forwards;
+  }
+  .btn {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.85rem 2rem;
+    border-radius: 4px;
+    text-decoration: none;
+    transition: all 0.2s;
+    display: inline-block;
+  }
+  .btn-primary {
+    background: var(--accent);
+    color: #0a0a0f;
+    font-weight: 500;
+  }
+  .btn-primary:hover { background: #a7f3d0; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(110,231,183,0.2); }
+  .btn-outline {
+    border: 1px solid var(--border);
+    color: var(--muted);
+  }
+  .btn-outline:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+
+  .hero-meta {
+    margin-top: 4rem;
+    display: flex;
+    gap: 3rem;
+    opacity: 0;
+    animation: fadeUp 0.8s 1s forwards;
+  }
+  .hero-stat-num {
+    font-family: 'DM Serif Display', serif;
+    font-size: 2rem;
+    color: var(--text);
+  }
+  .hero-stat-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  /* ── SECTIONS ── */
+  section { padding: 6rem 0; }
+  .section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1rem;
+  }
+  .section-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 400;
+    margin-bottom: 3rem;
+  }
+
+  /* ── DIVIDER ── */
+  .divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 0;
+  }
+
+  /* ── SKILLS ── */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1.5rem;
+  }
+  .skill-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1.5rem;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .skill-card:hover { border-color: var(--accent); transform: translateY(-3px); }
+  .skill-card-title {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent2);
+    margin-bottom: 1rem;
+  }
+  .tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .tag {
+    background: var(--tag-bg);
+    border: 1px solid var(--border);
+    color: var(--muted);
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    padding: 0.3rem 0.75rem;
+    border-radius: 100px;
+    letter-spacing: 0.04em;
+  }
+
+  /* ── EXPERIENCE ── */
+  .exp-list { display: flex; flex-direction: column; gap: 0; }
+  .exp-item {
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    gap: 2rem;
+    padding: 2.5rem 0;
+    border-bottom: 1px solid var(--border);
+    transition: background 0.2s;
+  }
+  .exp-item:last-child { border-bottom: none; }
+  .exp-date {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--muted);
+    letter-spacing: 0.06em;
+    padding-top: 0.3rem;
+  }
+  .exp-company {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.4rem;
+    font-weight: 400;
+    margin-bottom: 0.25rem;
+  }
+  .exp-role {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+  .exp-bullets { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+  .exp-bullets li {
+    font-size: 0.92rem;
+    color: var(--muted);
+    line-height: 1.7;
+    padding-left: 1.2rem;
+    position: relative;
+  }
+  .exp-bullets li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-size: 0.8rem;
+  }
+
+  /* ── PROJECTS ── */
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+    gap: 1.5rem;
+  }
+  .project-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .project-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .project-card:hover { border-color: var(--accent); transform: translateY(-4px); }
+  .project-card:hover::before { opacity: 1; }
+  .project-name {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.3rem;
+    font-weight: 400;
+    margin-bottom: 0.75rem;
+  }
+  .project-desc {
+    font-size: 0.9rem;
+    color: var(--muted);
+    line-height: 1.7;
+    margin-bottom: 1.25rem;
+  }
+  .project-highlight {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--accent);
+    letter-spacing: 0.04em;
+    margin-bottom: 1rem;
+  }
+
+  /* ── EDUCATION ── */
+  .edu-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+  .edu-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 2rem;
+    transition: border-color 0.2s;
+  }
+  .edu-card:hover { border-color: var(--accent2); }
+  .edu-degree {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.2rem;
+    font-weight: 400;
+    margin-bottom: 0.4rem;
+  }
+  .edu-uni {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--accent2);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 0.3rem;
+  }
+  .edu-school {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--accent2);
+    letter-spacing: 0.06em;
+    margin-bottom: 0.75rem;
+  }
+  .edu-meta {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--muted);
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+  .gpa { color: var(--accent); }
+
+  /* ── CONTACT ── */
+  .contact-section {
+    text-align: center;
+    padding: 6rem 0 8rem;
+  }
+  .contact-section .section-label { justify-content: center; display: block; }
+  .contact-section .section-title { margin-bottom: 1rem; }
+  .contact-tagline {
+    font-size: 1rem;
+    color: var(--muted);
+    margin-bottom: 2.5rem;
+  }
+  .contact-links {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  /* ── NYU SECTION ── */
+  .nyu-grid { display: flex; flex-direction: column; gap: 2rem; }
+  .nyu-block {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 2rem;
+    transition: border-color 0.2s;
+  }
+  .nyu-block:hover { border-color: var(--accent2); }
+  .nyu-block-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  .nyu-block-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.25rem;
+    font-weight: 400;
+  }
+  .nyu-block-badge {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent2);
+    border: 1px solid var(--accent2);
+    padding: 0.25rem 0.7rem;
+    border-radius: 100px;
+    white-space: nowrap;
+  }
+  .nyu-block-sub {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--accent);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 0.9rem;
+  }
+  .nyu-bullets { list-style: none; display: flex; flex-direction: column; gap: 0.55rem; }
+  .nyu-bullets li {
+    font-size: 0.92rem;
+    color: var(--muted);
+    line-height: 1.7;
+    padding-left: 1.2rem;
+    position: relative;
+  }
+  .nyu-bullets li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--accent2);
+    font-size: 0.8rem;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 1.5rem 0;
+    text-align: center;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--muted);
+    letter-spacing: 0.06em;
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 640px) {
+    .exp-item { grid-template-columns: 1fr; gap: 0.5rem; }
+    .edu-grid { grid-template-columns: 1fr; }
+    .projects-grid { grid-template-columns: 1fr; }
+    .nav-links { display: none; }
+    .hero-meta { gap: 2rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="container">
+    <a href="#" class="nav-logo">ms // portfolio</a>
+    <ul class="nav-links">
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#nyu">At NYU</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-glow2"></div>
+  <div class="container">
+    <p class="hero-label">Software Engineer · New York, USA</p>
+    <h1>Mahima<br><em>Sachdeva</em></h1>
+    <p class="hero-desc">
+      Backend & ML engineer with 3.5 years building scalable systems at Adobe and Amazon. 
+      Specializing in AI infrastructure, semantic search, and model optimization.
+    </p>
+    <div class="hero-cta">
+      <a href="/cdn-cgi/l/email-protection#eb8698dadeded8d9ab85929ec58e8f9e" class="btn btn-primary">Get in touch</a>
+      <a href="https://github.com/mahi397" target="_blank" class="btn btn-outline">GitHub ↗</a>
+      <a href="https://linkedin.com/in/mahimasachdeva" target="_blank" class="btn btn-outline">LinkedIn ↗</a>
+    </div>
+    <!-- <div class="hero-meta">
+      <div>
+        <div class="hero-stat-num">3.5</div>
+        <div class="hero-stat-label">Years experience</div>
+      </div>
+      <div>
+        <div class="hero-stat-num">3.9</div>
+        <div class="hero-stat-label">GPA @ NYU</div>
+      </div>
+      <div>
+        <div class="hero-stat-num">3</div>
+        <div class="hero-stat-label">Companies</div>
+      </div>
+    </div> -->
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="container">
+    <p class="section-label reveal">Work Experience</p>
+    <h2 class="section-title reveal">Where I've worked</h2>
+    <div class="exp-list">
+
+      <div class="exp-item reveal">
+        <div>
+          <div class="exp-date">May – Aug 2025</div>
+          <div class="exp-date" style="margin-top:0.3rem">New York</div>
+        </div>
+        <div>
+          <div class="exp-company">Amazon</div>
+          <div class="exp-role">Software Development Intern</div>
+          <ul class="exp-bullets">
+            <li>Extended Prime Video's AI Topics backend to surface topic clusters on Search results page for beta rollout across U.S. users, enhancing AI-driven content discovery beyond keyword search.</li>
+            <li>Deployed a new SageMaker endpoint hosting an embedding model via AWS CDK for efficient semantic search retrieval.</li>
+            <li>Implemented backend logic for title and genre queries across 3 microservices with high-availability integration.</li>
+            <li>Achieved 80% test coverage across unit and integration tests within existing CI/CD pipelines.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="exp-item reveal">
+        <div>
+          <div class="exp-date">Jul 2021 – Aug 2024</div>
+          <div class="exp-date" style="margin-top:0.3rem">India</div>
+        </div>
+        <div>
+          <div class="exp-company">Adobe</div>
+          <div class="exp-role">Software Development Engineer</div>
+          <ul class="exp-bullets">
+            <li>Led development of a JavaScript parser to automate Marketo's onboarding onto Adobe's localization framework — 30% cost savings, earned Special Contribution Award.</li>
+            <li>Built a TypeScript linter for static code analysis of React i18n issues, reducing bugs by 20% and integrated into CI/CD pipelines.</li>
+            <li>Created an i18n playbook cutting major bug resolution times by 40%, adopted across frontend teams.</li>
+            <li>Built a JavaScript library for early i18n bug detection in E2E tests, reducing testing effort by 25%.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="exp-item reveal">
+        <div>
+          <div class="exp-date">Feb – Jul 2021</div>
+          <div class="exp-date" style="margin-top:0.3rem">India</div>
+        </div>
+        <div>
+          <div class="exp-company">Samsung Research</div>
+          <div class="exp-role">Software Development Engineer</div>
+          <ul class="exp-bullets">
+            <li>Resolved 10+ critical bugs and enhanced Android application features using Java on the Applications R&D team.</li>
+            <li>Worked across full SDLC in Agile sprints with cross-functional collaboration and comprehensive testing.</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="container">
+    <p class="section-label reveal">Selected Work</p>
+    <h2 class="section-title reveal">Projects</h2>
+    <div class="projects-grid">
+
+      <!-- <div class="project-card reveal">
+        <div class="project-name">DACQ: Distribution-Aware Companding Quantization</div>
+        <div class="project-desc">Co-authored arXiv paper proposing a post-training quantization framework for LLMs that models each transformer layer's empirical weight distribution and applies a CDF-based companding transform before quantization — allocating finer precision in dense regions and coarser bins in the tails.</div>
+        <div class="project-highlight">Published on arXiv · Feb 2026 · Evaluated on Llama3-8B & Qwen2.5-7B</div>
+        <div class="tags">
+          <span class="tag">LLM Quantization</span><span class="tag">PTQ</span><span class="tag">PyTorch</span><span class="tag">CUDA</span><span class="tag">Transformers</span><span class="tag">Research</span>
+        </div>
+        <div style="margin-top:1.25rem; display:flex; gap:0.75rem; flex-wrap:wrap;">
+          <a href="https://arxiv.org/abs/2603.00364" target="_blank" style="font-family:'DM Mono',monospace;font-size:0.72rem;color:var(--accent);border:1px solid var(--accent);padding:0.3rem 0.85rem;border-radius:100px;text-decoration:none;letter-spacing:0.06em;transition:background 0.2s;" onmouseover="this.style.background='rgba(110,231,183,0.1)'" onmouseout="this.style.background='transparent'">arXiv ↗</a>
+          <a href="#" target="_blank" id="poster-link" style="font-family:'DM Mono',monospace;font-size:0.72rem;color:var(--muted);border:1px solid var(--border);padding:0.3rem 0.85rem;border-radius:100px;text-decoration:none;letter-spacing:0.06em;transition:all 0.2s;" onmouseover="this.style.borderColor='var(--accent2)';this.style.color='var(--accent2)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--muted)'">Poster ↗</a>
+        </div>
+      </div> -->
+
+      <div class="project-card reveal">
+        <div class="project-name">Distribution-Aware Companding Quantization in LLMs</div>
+        <div class="project-desc">Investigated whether modeling transformer weight distributions improves LLM quantization. Systematically showed that weights in Llama3-8B and Qwen2.5-7B follow a logistic distribution (best fit in 109/192 and 111/168 submodules respectively), then built DACQ — a PTQ framework applying per-layer CDF companding before 4-bit quantization. DACQ achieves lower weight reconstruction MSE than AWQ, yet perplexity does not improve — surfacing a key finding: outlier weights are statistically rare but task-critical, and distribution-aware compression penalizes them. The gap between reconstruction fidelity and downstream quality is itself the contribution.</div>
+        <div class="project-highlight">Lower MSE than AWQ · 19% throughput gain over FP16 · arXiv:2603.00364 · Feb 2026</div>
+        <div class="tags">
+          <span class="tag">LLM Quantization</span><span class="tag">PTQ</span><span class="tag">PyTorch</span><span class="tag">CUDA</span><span class="tag">Transformers</span><span class="tag">Research</span>
+        </div>
+        <div style="margin-top:1.25rem; display:flex; gap:0.75rem; flex-wrap:wrap;">
+          <a href="https://arxiv.org/abs/2603.00364" target="_blank" style="font-family:'DM Mono',monospace;font-size:0.72rem;color:var(--accent);border:1px solid var(--accent);padding:0.3rem 0.85rem;border-radius:100px;text-decoration:none;letter-spacing:0.06em;transition:background 0.2s;" onmouseover="this.style.background='rgba(110,231,183,0.1)'" onmouseout="this.style.background='transparent'">arXiv ↗</a>
+          <a href="https://github.com/mahi397/dist-quant" target="_blank" style="font-family:'DM Mono',monospace;font-size:0.72rem;color:var(--accent);border:1px solid var(--accent);padding:0.3rem 0.85rem;border-radius:100px;text-decoration:none;letter-spacing:0.06em;transition:background 0.2s;" onmouseover="this.style.background='rgba(110,231,183,0.1)'" onmouseout="this.style.background='transparent'">GitHub ↗</a>
+          <a href="#" target="_blank" id="poster-link" style="font-family:'DM Mono',monospace;font-size:0.72rem;color:var(--muted);border:1px solid var(--border);padding:0.3rem 0.85rem;border-radius:100px;text-decoration:none;letter-spacing:0.06em;transition:all 0.2s;" onmouseover="this.style.borderColor='var(--accent2)';this.style.color='var(--accent2)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--muted)'">Poster ↗</a>
+        </div>
+      </div>
+
+      <div class="project-card reveal">
+        <div class="project-name">Edit-REPA: Representation-Aligned Diffusion for Image Editing</div>
+        <div class="project-desc">Identified a representation bottleneck in instruction-based diffusion editors: early timesteps operate on heavily corrupted latents, causing semantic drift and structural collapse before the edit is applied. Proposed Edit-REPA, which anchors U-Net mid-block features to frozen pretrained encoders (DINOv2 for structure, SigLIP/CLIP for semantics) during fine-tuning of InstructPix2Pix. Training converged stably with cosine alignment plateauing at ~0.8, and qualitative results show reduced drift and better global structure preservation vs. the unaligned baseline. Extended the framework design to a PixArt-α DiT editor and Conditional Flow Matching objectives.</div>
+        <div class="project-highlight">Stable alignment (cosine sim ~0.8) · Qualitative drift reduction · Novel application of REPA to editing</div>
+        <div class="tags">
+          <span class="tag">Diffusion Models</span><span class="tag">InstructPix2Pix</span><span class="tag">DINOv2</span><span class="tag">SigLIP</span><span class="tag">PyTorch</span><span class="tag">PixArt-α</span><span class="tag">Flow Matching</span><span class="tag">Computer Vision</span>
+        </div>
+        <div style="margin-top:1.25rem; display:flex; gap:0.75rem; flex-wrap:wrap;">
+          <a href="https://github.com/mahi397/EditREPA" target="_blank" style="font-family:'DM Mono',monospace;font-size:0.72rem;color:var(--accent);border:1px solid var(--accent);padding:0.3rem 0.85rem;border-radius:100px;text-decoration:none;letter-spacing:0.06em;transition:background 0.2s;" onmouseover="this.style.background='rgba(110,231,183,0.1)'" onmouseout="this.style.background='transparent'">GitHub ↗</a>
+          <a href="#" target="_blank" id="editrepa-report" style="font-family:'DM Mono',monospace;font-size:0.72rem;color:var(--accent);border:1px solid var(--accent);padding:0.3rem 0.85rem;border-radius:100px;text-decoration:none;letter-spacing:0.06em;transition:background 0.2s;" onmouseover="this.style.background='rgba(110,231,183,0.1)'" onmouseout="this.style.background='transparent'">Report ↗</a>
+          <a href="#" target="_blank" id="editrepa-slides" style="font-family:'DM Mono',monospace;font-size:0.72rem;color:var(--muted);border:1px solid var(--border);padding:0.3rem 0.85rem;border-radius:100px;text-decoration:none;letter-spacing:0.06em;transition:all 0.2s;" onmouseover="this.style.borderColor='var(--accent2)';this.style.color='var(--accent2)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--muted)'">Slides ↗</a>
+        </div>
+      </div>
+
+      <div class="project-card reveal">
+        <div class="project-name">Optimizing Transformer-based Sequential Recommender Systems</div>
+        <div class="project-desc">Studied the effect of system-level optimizations on training efficiency of BERT4Rec scaled from 5M to 430M parameters, across NVIDIA A100, V100, and L4 GPUs. Focus was on iLoRA (instance-wise LoRA) and mixed-precision training: AMP alone reduced peak memory from 11.2 GB to 7.2 GB on the 130M model. On the 430M model, iLoRA+AMP+torch.compile (reduce-overhead) cut step time from 470ms to 130ms and memory from 10.4 GB to 2.85 GB — while using only 0.96% of trainable parameters and retaining recommendation accuracy.</div>
+        <div class="project-highlight">72% step time reduction (iLoRA) · 70% memory reduction · 99% fewer trainable params</div>
+        <div class="tags">
+          <span class="tag">PyTorch</span><span class="tag">AMP</span><span class="tag">torch.compile</span><span class="tag">iLoRA</span><span class="tag">BERT4Rec</span><span class="tag">WandB</span><span class="tag">CUDA</span><span class="tag">DistributedDataParallel</span>
+        </div>
+        <div style="margin-top:1.25rem; display:flex; gap:0.75rem; flex-wrap:wrap;">
+          <a href="https://github.com/mahi397/Optimizing-Transformer-based-Sequential-RecommenderSystems" target="_blank" style="font-family:'DM Mono',monospace;font-size:0.72rem;color:var(--accent);border:1px solid var(--accent);padding:0.3rem 0.85rem;border-radius:100px;text-decoration:none;letter-spacing:0.06em;transition:background 0.2s;" onmouseover="this.style.background='rgba(110,231,183,0.1)'" onmouseout="this.style.background='transparent'">GitHub ↗</a>
+          <a href="#" target="_blank" id="bert4rec-report" style="font-family:'DM Mono',monospace;font-size:0.72rem;color:var(--muted);border:1px solid var(--border);padding:0.3rem 0.85rem;border-radius:100px;text-decoration:none;letter-spacing:0.06em;transition:all 0.2s;" onmouseover="this.style.borderColor='var(--accent2)';this.style.color='var(--accent2)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--muted)'">Report ↗</a>
+          <a href="#" target="_blank" id="bert4rec-slides" style="font-family:'DM Mono',monospace;font-size:0.72rem;color:var(--muted);border:1px solid var(--border);padding:0.3rem 0.85rem;border-radius:100px;text-decoration:none;letter-spacing:0.06em;transition:all 0.2s;" onmouseover="this.style.borderColor='var(--accent2)';this.style.color='var(--accent2)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--muted)'">Slides ↗</a>
+        </div>
+      </div>
+
+      <div class="project-card reveal">
+        <div class="project-name">Adversarial Attacks on ImageNet Models</div>
+        <div class="project-desc">Implemented FGSM, PGD, and patch-based adversarial attacks on a pretrained ResNet-34 (ImageNet baseline: 76% Top-1), all constrained to ε=0.02 pixel-space perturbation. FGSM dropped Top-1 to 3.4% in a single gradient step; PGD (20 iterations, α=0.005) achieved complete model failure at 0% Top-1 with an 87.4% attack success rate. A localized patch attack (64×64, ε=0.5, 50 iterations) achieved 91% success rate. Also evaluated cross-architecture transferability to DenseNet-121 — PGD transferred most effectively (45.5%), while patch attacks transferred poorly (25.5%), exposing the role of architecture-specific spatial representations in adversarial robustness.</div>
+        <div class="project-highlight">PGD: 76% → 0% Top-1 · 91% patch success · 45.5% cross-arch transfer rate</div>
+        <div class="tags">
+          <span class="tag">PyTorch</span><span class="tag">Adversarial ML</span><span class="tag">FGSM</span><span class="tag">PGD</span><span class="tag">ResNet-34</span><span class="tag">DenseNet-121</span><span class="tag">ImageNet</span>
+        </div>
+        <div style="margin-top:1.25rem; display:flex; gap:0.75rem; flex-wrap:wrap;">
+          <a href="https://github.com/mahi397/Jailbreaking-Deep-Models" target="_blank" style="font-family:'DM Mono',monospace;font-size:0.72rem;color:var(--accent);border:1px solid var(--accent);padding:0.3rem 0.85rem;border-radius:100px;text-decoration:none;letter-spacing:0.06em;transition:background 0.2s;" onmouseover="this.style.background='rgba(110,231,183,0.1)'" onmouseout="this.style.background='transparent'">GitHub ↗</a>
+        </div>
+      </div>
+
+      <div class="project-card reveal">
+        <div class="project-name">LLM Fine-tuning with LoRA — AG News Classification</div>
+        <div class="project-desc">Fine-tuned RoBERTa on AG News (4-class news topic classification) using only LoRA adapters, under a strict 1M trainable parameter budget. LoRA injects low-rank matrices into frozen RoBERTa weights, enabling task adaptation without full fine-tuning. Achieved 94.15% validation accuracy while staying well within the parameter constraint.</div>
+        <div class="project-highlight">94.15% val accuracy · RoBERTa + LoRA · ≤1M trainable params · AG News</div>
+        <div class="tags">
+          <span class="tag">PyTorch</span><span class="tag">LoRA</span><span class="tag">Transformers</span><span class="tag">NLP</span><span class="tag">Text Classification</span><span class="tag">PEFT</span>
+        </div>
+        <div style="margin-top:1.25rem; display:flex; gap:0.75rem; flex-wrap:wrap;">
+          <a href="https://github.com/mahi397/Finetuning-with-LoRA" target="_blank" style="font-family:'DM Mono',monospace;font-size:0.72rem;color:var(--accent);border:1px solid var(--accent);padding:0.3rem 0.85rem;border-radius:100px;text-decoration:none;letter-spacing:0.06em;transition:background 0.2s;" onmouseover="this.style.background='rgba(110,231,183,0.1)'" onmouseout="this.style.background='transparent'">GitHub ↗</a>
+        </div>
+      </div>
+
+      <div class="project-card reveal">
+        <div class="project-name">ResNet-34 CIFAR-10 Classification</div>
+        <div class="project-desc">Kaggle competition: design the highest-accuracy ResNet variant on CIFAR-10 under a strict 5M parameter budget, trained from scratch. Built a modified ResNet-34 (4.5M params) tuned with SGD + cosine annealing LR, weight decay, and dropout (p=0.2) over 100 epochs. Achieved 94.13% validation accuracy — exceeding the 90%+ target set by the course and placing in the top tier of the competition.</div>
+        <div class="project-highlight">94.13% val accuracy · 4.5M params · ≤5M param budget · Top-tier Kaggle finish</div>
+        <div class="tags">
+          <span class="tag">PyTorch</span><span class="tag">ResNet</span><span class="tag">Computer Vision</span><span class="tag">CIFAR-10</span><span class="tag">SGD</span><span class="tag">Cosine Annealing</span>
+        </div>
+        <div style="margin-top:1.25rem; display:flex; gap:0.75rem; flex-wrap:wrap;">
+          <a href="https://github.com/mahi397/Employing-ResNet-Architecture-for-CIFAR-10-Classification" target="_blank" style="font-family:'DM Mono',monospace;font-size:0.72rem;color:var(--accent);border:1px solid var(--accent);padding:0.3rem 0.85rem;border-radius:100px;text-decoration:none;letter-spacing:0.06em;transition:background 0.2s;" onmouseover="this.style.background='rgba(110,231,183,0.1)'" onmouseout="this.style.background='transparent'">GitHub ↗</a>
+        </div>
+      </div>
+
+      <!-- <div class="project-card reveal">
+        <div class="project-name">RAG-VLM</div>
+        <div class="project-desc">Multimodal RAG pipeline combining CLIP embeddings, FAISS vector retrieval, and a lightweight VLM to answer image & text queries with grounded evidence.</div>
+        <div class="project-highlight">↑ 25% Recall@10 over BM25 baseline</div>
+        <div class="tags">
+          <span class="tag">Python</span><span class="tag">CLIP</span><span class="tag">FAISS</span><span class="tag">VLM</span><span class="tag">RAG</span>
+        </div>
+      </div>
+
+      <div class="project-card reveal">
+        <div class="project-name">Multimodal Search — Pruned & Quantized</div>
+        <div class="project-desc">Structured pruning and post-training quantization applied to a multimodal reranker, drastically reducing model size and latency with minimal accuracy loss.</div>
+        <div class="project-highlight">3× smaller · 50% lower p95 latency · 98% Recall@10 retained</div>
+        <div class="tags">
+          <span class="tag">PyTorch</span><span class="tag">Quantization</span><span class="tag">Pruning</span><span class="tag">ONNX</span>
+        </div>
+      </div>
+
+      <div class="project-card reveal">
+        <div class="project-name">Exam Accessibility Assistant</div>
+        <div class="project-desc">Offline exam reader providing accommodation for students with reading impairments — 100% offline with on-device OCR, TTS, voice commands, and answer sheet export.</div>
+        <div class="project-highlight">Fully offline · Real-time TTS · Voice command input</div>
+        <div class="tags">
+          <span class="tag">Python</span><span class="tag">OCR</span><span class="tag">TTS</span><span class="tag">Accessibility</span>
+        </div>
+      </div> -->
+
+      <div class="project-card reveal">
+        <div class="project-name">CruiseInc</div>
+        <div class="project-desc">Full-stack cruise booking platform with robust backend security, admin dashboard, and seamless end-to-end booking — query performance optimized via caching and indexing.</div>
+        <div class="project-highlight">↑ 40% query performance via caching & DB indexing</div>
+        <div class="tags">
+          <span class="tag">React</span><span class="tag">Django</span><span class="tag">MySQL</span>
+        </div>
+        <div style="margin-top:1.25rem; display:flex; gap:0.75rem; flex-wrap:wrap;">
+          <a href="https://github.com/mahi397/nice" target="_blank" style="font-family:'DM Mono',monospace;font-size:0.72rem;color:var(--accent);border:1px solid var(--accent);padding:0.3rem 0.85rem;border-radius:100px;text-decoration:none;letter-spacing:0.06em;transition:background 0.2s;" onmouseover="this.style.background='rgba(110,231,183,0.1)'" onmouseout="this.style.background='transparent'">GitHub ↗</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="container">
+    <p class="section-label reveal">Capabilities</p>
+    <h2 class="section-title reveal">Skills</h2>
+    <div class="skills-grid">
+
+      <div class="skill-card reveal">
+        <div class="skill-card-title">Languages</div>
+        <div class="tags">
+          <span class="tag">Java</span><span class="tag">Python</span><span class="tag">Kotlin</span>
+          <span class="tag">JavaScript</span><span class="tag">TypeScript</span><span class="tag">SQL</span>
+        </div>
+      </div>
+
+      <div class="skill-card reveal">
+        <div class="skill-card-title">Frameworks</div>
+        <div class="tags">
+          <span class="tag">Flask</span><span class="tag">Django</span><span class="tag">React</span>
+          <span class="tag">ExpressJS</span><span class="tag">PyTorch</span>
+        </div>
+      </div>
+
+      <div class="skill-card reveal">
+        <div class="skill-card-title">AI / ML</div>
+        <div class="tags">
+          <span class="tag">Deep Learning</span><span class="tag">NLP</span><span class="tag">LLMs</span>
+          <span class="tag">RAG</span><span class="tag">Vector DBs</span><span class="tag">Computer Vision</span>
+          <span class="tag">Transformers</span><span class="tag">Knowledge Distillation</span>
+        </div>
+      </div>
+
+      <div class="skill-card reveal">
+        <div class="skill-card-title">Cloud & Infra</div>
+        <div class="tags">
+          <span class="tag">AWS</span><span class="tag">S3</span><span class="tag">Lambda</span>
+          <span class="tag">SageMaker</span><span class="tag">Docker</span><span class="tag">Kubernetes</span>
+          <span class="tag">CI/CD</span><span class="tag">Microservices</span>
+        </div>
+      </div>
+
+      <div class="skill-card reveal">
+        <div class="skill-card-title">Model Optimization</div>
+        <div class="tags">
+          <span class="tag">CUDA</span><span class="tag">cuDNN</span><span class="tag">TorchScript</span>
+          <span class="tag">ONNX</span><span class="tag">Pruning</span><span class="tag">Quantization</span>
+          <span class="tag">Mixed-Precision</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="container">
+    <p class="section-label reveal">Background</p>
+    <h2 class="section-title reveal">Education</h2>
+    <div class="edu-grid">
+      <div class="edu-card reveal">
+        <div class="edu-degree">Master's in Computer Engineering</div>
+        <div class="edu-uni">New York University</div>
+        <div class="edu-school">Tandon School of Engineering</div>
+        <div class="edu-meta">
+          <span>Sep 2024 – May 2026</span>
+          <!-- <span class="gpa">GPA: 3.9 / 4.0</span> -->
+        </div>
+      </div>
+      <div class="edu-card reveal">
+        <div class="edu-degree">Bachelor's in Computer Science</div>
+        <div class="edu-uni">University of Delhi</div>
+        <div class="edu-school">Netaji Subhas Institute of Technology</div>
+        <div class="edu-meta">
+          <span>Aug 2016 – Jun 2020</span>
+          <!-- <span class="gpa">GPA: 3.5 / 4.0</span> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- NYU -->
+<section id="nyu">
+  <div class="container">
+    <p class="section-label reveal">At NYU</p>
+    <h2 class="section-title reveal">Beyond the classroom</h2>
+    <div class="nyu-grid">
+
+      <!-- RESEARCH -->
+      <div class="nyu-block reveal">
+        <div class="nyu-block-header">
+          <div class="nyu-block-title">Graduate Researcher</div>
+          <span class="nyu-block-badge">Sep 2025 – May 2026</span>
+        </div>
+        <div class="nyu-block-sub">NYU Vertically Integrated Projects · Rizzo Lab</div>
+        <ul class="nyu-bullets">
+          <li>Building an assistive pipeline for Persons with Blindness or Low Vision (pBLV) to navigate low-light indoor environments.</li>
+          <li>Preprocessing low-light indoor images using an image enhancement model, then feeding enhanced frames into a Vision Language Model to generate real-time scene descriptions.</li>
+          <li>Goal: a grounded, accessible visual assistant that works in challenging lighting conditions where off-the-shelf models fail.</li>
+        </ul>
+        <div style="margin-top:1rem">
+          <div class="tags">
+            <span class="tag">Computer Vision</span><span class="tag">VLM</span><span class="tag">Image Enhancement</span><span class="tag">Accessibility</span><span class="tag">PyTorch</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- TA -->
+      <div class="nyu-block reveal">
+        <div class="nyu-block-header">
+          <div class="nyu-block-title">Teaching Assistant — Data Structures</div>
+          <span class="nyu-block-badge">Sep 2024 – May 2026</span>
+        </div>
+        <div class="nyu-block-sub">NYU Courant · Undergraduate Computer Science</div>
+        <ul class="nyu-bullets">
+          <li><strong style="color:var(--text);font-weight:500">Jan 2026 - May 2026 — Graduate Adjunct Faculty:</strong> Led weekly recitations and held office hours for 2 sections (50 students total).</li>
+          <li><strong style="color:var(--text);font-weight:500">Sep 2025 - May 2026 — Course Assistant:</strong> Managed a team of graders, coordinated course logistics, proctored exams, and served as the primary point of contact for student concerns.</li>
+          <li><strong style="color:var(--text);font-weight:500">Sep 2024 - May 2025 — Grader:</strong> Evaluated student submissions (homework, quizzes, exams) and provided detailed feedback on correctness and code quality.</li>
+        </ul>
+        <div style="margin-top:1rem">
+          <div class="tags">
+            <span class="tag">Leadership</span><span class="tag">Teaching</span><span class="tag">Team Management</span><span class="tag">Presentation</span><span class="tag">Communication</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- VOLUNTEER -->
+      <div class="nyu-block reveal">
+        <div class="nyu-block-header">
+          <div class="nyu-block-title">Volunteer</div>
+          <span class="nyu-block-badge">NYU & Adobe</span>
+        </div>
+        <div class="nyu-block-sub">Community Service · DEI Leadership</div>
+        <ul class="nyu-bullets">
+          <li><strong style="color:var(--text);font-weight:500">Give Where You Live (NYU):</strong> Street tree care with Big Reuse; grocery kit packing at Part of the Solution Bronx (POTS) and Community Help in Park Slope (CHiPS).</li>
+          <li><strong style="color:var(--text);font-weight:500">Action Circles Co-Lead (Adobe):</strong> Co-led DEI-focused learning circles, driving conversations and programming around diversity, equity, and inclusion across the organization.</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- CONTACT -->
+<section id="contact" class="contact-section">
+  <div class="container">
+    <p class="section-label reveal">Let's connect</p>
+    <h2 class="section-title reveal">Get in touch</h2>
+    <p class="contact-tagline reveal">Open to full-time SWE roles — feel free to reach out.</p>
+    <div class="contact-links reveal">
+      <a href="/cdn-cgi/l/email-protection#c4a9b7f5f1f1f7f684aabdb1eaa1a0b1" class="btn btn-primary"><span class="__cf_email__" data-cfemail="3d504e0c08080e0f7d53444813585948">[email&#160;protected]</span></a>
+      <a href="https://linkedin.com/in/mahimasachdeva" target="_blank" class="btn btn-outline">LinkedIn ↗</a>
+      <a href="https://github.com/mahi397" target="_blank" class="btn btn-outline">GitHub ↗</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    built by mahima sachdeva · 2026
+  </div>
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 60);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
