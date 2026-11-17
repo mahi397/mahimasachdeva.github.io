@@ -497,6 +497,13 @@
     .nav-links { display: none; }
     .hero-meta { gap: 2rem; }
   }
+
+  .pill-link { font-family:'DM Mono',monospace; font-size:0.72rem; color:var(--accent); border:1px solid var(--accent);
+    padding:0.3rem 0.85rem; border-radius:100px; text-decoration:none; letter-spacing:0.06em; transition:background 0.2s; }
+  .pill-link:hover { background: rgba(110,231,183,0.1); }
+  .project-links { margin-top:1.25rem; display:flex; gap:0.75rem; flex-wrap:wrap; }
+  .more-list { list-style:none; margin-top:0.75rem; }
+  .more-list li { margin:0.6rem 0; }
 </style>
 </head>
 <body>
@@ -523,28 +530,14 @@
     <p class="hero-label">Software Engineer · New York, USA</p>
     <h1>Mahima<br><em>Sachdeva</em></h1>
     <p class="hero-desc">
-      Backend & ML engineer with 3.5 years building scalable systems at Adobe and Amazon. 
-      Specializing in AI infrastructure, semantic search, and model optimization.
+      Software engineer at Amazon working on backend and applied AI:
+      production systems around ML and LLMs, from semantic search to retraining pipelines.
     </p>
     <div class="hero-cta">
       <a href="mailto:ms15532@nyu.edu" class="btn btn-primary">Get in touch</a>
       <a href="https://www.github.com/mahi397" target="_blank" class="btn btn-outline">GitHub ↗</a>
       <a href="https://www.linkedin.com/in/mahimasachdeva" target="_blank" class="btn btn-outline">LinkedIn ↗</a>
     </div>
-    <!-- <div class="hero-meta">
-      <div>
-        <div class="hero-stat-num">3.5</div>
-        <div class="hero-stat-label">Years experience</div>
-      </div>
-      <div>
-        <div class="hero-stat-num">3.9</div>
-        <div class="hero-stat-label">GPA @ NYU</div>
-      </div>
-      <div>
-        <div class="hero-stat-num">3</div>
-        <div class="hero-stat-label">Companies</div>
-      </div>
-    </div> -->
   </div>
 </section>
 
@@ -559,17 +552,30 @@
 
       <div class="exp-item reveal">
         <div>
+          <div class="exp-date">Jun 2026 – Present</div>
+          <div class="exp-date" style="margin-top:0.3rem">New York</div>
+        </div>
+        <div>
+          <div class="exp-company">Amazon</div>
+          <div class="exp-role">Software Development Engineer · Supply Chain Optimization Technology</div>
+          <ul class="exp-bullets">
+            <li>Designing and building a full-stack system to scale single-offer product launches for sellers from 50 to 10,000, owning architecture, backend, and frontend.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="exp-item reveal">
+        <div>
           <div class="exp-date">May – Aug 2025</div>
           <div class="exp-date" style="margin-top:0.3rem">New York</div>
         </div>
         <div>
           <div class="exp-company">Amazon</div>
-          <div class="exp-role">Software Development Intern</div>
+          <div class="exp-role">Software Development Engineer Intern · Prime Video</div>
           <ul class="exp-bullets">
-            <li>Extended Prime Video's AI Topics backend to surface topic clusters on Search results page for beta rollout across U.S. users, enhancing AI-driven content discovery beyond keyword search.</li>
-            <li>Deployed a new SageMaker endpoint hosting an embedding model via AWS CDK for efficient semantic search retrieval.</li>
-            <li>Implemented backend logic for title and genre queries across 3 microservices with high-availability integration.</li>
-            <li>Achieved 80% test coverage across unit and integration tests within existing CI/CD pipelines.</li>
+            <li>Extended Prime Video's AI Topics backend to surface topic clusters in search results for a beta user cohort, supporting both title and genre queries across 3 backend services.</li>
+            <li>Deployed an Amazon SageMaker endpoint hosting a text-embedding model with AWS CDK to serve embeddings for semantic search.</li>
+            <li>Wrote the technical design doc for the cross-service integration and shipped the feature with unit and integration tests in the existing CI/CD pipeline.</li>
           </ul>
         </div>
       </div>
@@ -583,10 +589,10 @@
           <div class="exp-company">Adobe</div>
           <div class="exp-role">Software Development Engineer</div>
           <ul class="exp-bullets">
-            <li>Led development of a JavaScript parser to automate Marketo's onboarding onto Adobe's localization framework — 30% cost savings, earned Special Contribution Award.</li>
-            <li>Built a TypeScript linter for static code analysis of React i18n issues, reducing bugs by 20% and integrated into CI/CD pipelines.</li>
-            <li>Created an i18n playbook cutting major bug resolution times by 40%, adopted across frontend teams.</li>
-            <li>Built a JavaScript library for early i18n bug detection in E2E tests, reducing testing effort by 25%.</li>
+            <li>Built a JavaScript parser and retrofitter that automated Marketo's onboarding onto Adobe's localization framework, replacing manual migration and cutting localization costs by 30%; owned it from requirements through deployment (Special Contribution Award).</li>
+            <li>Built a TypeScript static-analysis linter that flags localization defects in React code, integrated into CI/CD, reducing localization bugs by 20% (Special Contribution Award).</li>
+            <li>Built a JavaScript library that detects unlocalizable strings during end-to-end automated tests, catching i18n bugs before release and reducing testing effort by 25%.</li>
+            <li>Wrote an i18n bug-resolution playbook adopted across frontend, QA and product teams, cutting resolution time for major bugs by 40%.</li>
           </ul>
         </div>
       </div>
@@ -598,10 +604,9 @@
         </div>
         <div>
           <div class="exp-company">Samsung Research</div>
-          <div class="exp-role">Software Development Engineer</div>
+          <div class="exp-role">Software Development Engineer · Applications R&amp;D</div>
           <ul class="exp-bullets">
-            <li>Resolved 10+ critical bugs and enhanced Android application features using Java on the Applications R&D team.</li>
-            <li>Worked across full SDLC in Agile sprints with cross-functional collaboration and comprehensive testing.</li>
+            <li>Fixed 10+ critical bugs in Android applications (Java).</li>
           </ul>
         </div>
       </div>
@@ -619,135 +624,46 @@
     <h2 class="section-title reveal">Projects</h2>
     <div class="projects-grid">
 
-      <!-- <div class="project-card reveal">
-        <div class="project-name">DACQ: Distribution-Aware Companding Quantization</div>
-        <div class="project-desc">Co-authored arXiv paper proposing a post-training quantization framework for LLMs that models each transformer layer's empirical weight distribution and applies a CDF-based companding transform before quantization — allocating finer precision in dense regions and coarser bins in the tails.</div>
-        <div class="project-highlight">Published on arXiv · Feb 2026 · Evaluated on Llama3-8B & Qwen2.5-7B</div>
-        <div class="tags">
-          <span class="tag">LLM Quantization</span><span class="tag">PTQ</span><span class="tag">PyTorch</span><span class="tag">CUDA</span><span class="tag">Transformers</span><span class="tag">Research</span>
-        </div>
-        <div style="margin-top:1.25rem; display:flex; gap:0.75rem; flex-wrap:wrap;">
-          <a href="https://arxiv.org/abs/2603.00364" target="_blank" style="font-family:'DM Mono',monospace;font-size:0.72rem;color:var(--accent);border:1px solid var(--accent);padding:0.3rem 0.85rem;border-radius:100px;text-decoration:none;letter-spacing:0.06em;transition:background 0.2s;" onmouseover="this.style.background='rgba(110,231,183,0.1)'" onmouseout="this.style.background='transparent'">arXiv ↗</a>
-          <a href="#" target="_blank" id="poster-link" style="font-family:'DM Mono',monospace;font-size:0.72rem;color:var(--muted);border:1px solid var(--border);padding:0.3rem 0.85rem;border-radius:100px;text-decoration:none;letter-spacing:0.06em;transition:all 0.2s;" onmouseover="this.style.borderColor='var(--accent2)';this.style.color='var(--accent2)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--muted)'">Poster ↗</a>
-        </div>
-      </div> -->
+      <div class="project-card reveal">
+        <div class="project-name">Self-Improving Meeting Recap Pipeline</div>
+        <div class="project-desc">End-to-end ML system, built by a 3-person team on Chameleon Cloud, that segments Jitsi video-meeting transcripts by topic and summarizes each segment with Mistral-7B. I owned training and automated retraining: fine-tuned a RoBERTa topic-boundary classifier on the AMI meeting corpus with Ray Train (fault-tolerant MinIO checkpoints) and a 20-trial Optuna sweep, and built a retraining loop that turns user corrections into new training data. A model is registered in MLflow only if it passes Pk, WindowDiff, F1 and per-slice fairness gates; serving hot-reloads it from the registry.</div>
+        <div class="project-highlight">Test Pk 0.213 (random = 0.50) · Feedback-driven retraining · Quality-gated MLflow registry</div>
+        <div class="tags"><span class="tag">PyTorch</span><span class="tag">Hugging Face Transformers</span><span class="tag">Ray Train</span><span class="tag">Optuna</span><span class="tag">MLflow</span><span class="tag">Docker</span><span class="tag">PostgreSQL</span><span class="tag">MLOps</span></div>
+        <div class="project-links"><a href="https://github.com/mahi397/ML-Sys-Ops-Project" target="_blank" class="pill-link">GitHub ↗</a></div>
+      </div>
 
       <div class="project-card reveal">
-        <div class="project-name">Distribution-Aware Companding Quantization in LLMs</div>
-        <div class="project-desc">Investigated whether modeling transformer weight distributions improves LLM quantization. Systematically showed that weights in Llama3-8B and Qwen2.5-7B follow a logistic distribution (best fit in 109/192 and 111/168 submodules respectively), then built DACQ — a PTQ framework applying per-layer CDF companding before 4-bit quantization. DACQ achieves lower weight reconstruction MSE than AWQ, yet perplexity does not improve — surfacing a key finding: outlier weights are statistically rare but task-critical, and distribution-aware compression penalizes them. The gap between reconstruction fidelity and downstream quality is itself the contribution.</div>
-        <div class="project-highlight">Lower MSE than AWQ · 19% throughput gain over FP16 · arXiv:2603.00364 · Feb 2026</div>
-        <div class="tags">
-          <span class="tag">LLM Quantization</span><span class="tag">PTQ</span><span class="tag">PyTorch</span><span class="tag">CUDA</span><span class="tag">Transformers</span><span class="tag">Research</span>
-        </div>
-        <div style="margin-top:1.25rem; display:flex; gap:0.75rem; flex-wrap:wrap;">
-          <a href="https://arxiv.org/abs/2603.00364" target="_blank" style="font-family:'DM Mono',monospace;font-size:0.72rem;color:var(--accent);border:1px solid var(--accent);padding:0.3rem 0.85rem;border-radius:100px;text-decoration:none;letter-spacing:0.06em;transition:background 0.2s;" onmouseover="this.style.background='rgba(110,231,183,0.1)'" onmouseout="this.style.background='transparent'">arXiv ↗</a>
-          <a href="https://github.com/mahi397/dist-quant" target="_blank" style="font-family:'DM Mono',monospace;font-size:0.72rem;color:var(--accent);border:1px solid var(--accent);padding:0.3rem 0.85rem;border-radius:100px;text-decoration:none;letter-spacing:0.06em;transition:background 0.2s;" onmouseover="this.style.background='rgba(110,231,183,0.1)'" onmouseout="this.style.background='transparent'">GitHub ↗</a>
-          <!-- <a href="https://github.com/mahi397/mahimasachdeva.github.io/blob/main/NLP/nlp_poster-1.pdf" target="_blank" id="poster-link" style="font-family:'DM Mono',monospace;font-size:0.72rem;color:var(--accent);border:1px solid var(--accent);padding:0.3rem 0.85rem;border-radius:100px;text-decoration:none;letter-spacing:0.06em;transition:all 0.2s;" onmouseover="this.style.borderColor='var(--accent2)';this.style.color='var(--accent2)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--muted)'">Poster ↗</a> -->
-          <a href="https://github.com/mahi397/mahimasachdeva.github.io/blob/main/NLP/nlp_poster-1.pdf" target="_blank" id="poster-link" style="font-family:'DM Mono',monospace;font-size:0.72rem;color:var(--accent);border:1px solid var(--accent);padding:0.3rem 0.85rem;border-radius:100px;text-decoration:none;letter-spacing:0.06em;transition:background 0.2s;" onmouseover="this.style.background='rgba(110,231,183,0.1)'" onmouseout="this.style.background='transparent'">Poster ↗</a>
-        </div>
+        <div class="project-name">DACQ: 4-bit LLM Quantization</div>
+        <div class="project-desc">Investigated whether modeling transformer weight distributions improves LLM quantization. Showed that weights in Llama3-8B and Qwen2.5-7B are best fit by a logistic distribution (109/192 and 111/168 submodules), then built DACQ, a post-training quantization framework that applies per-layer CDF companding before 4-bit quantization. DACQ reconstructs weights more accurately than AWQ, but perplexity and MMLU do not improve: outlier weights are rare but carry model knowledge, and distribution matching under-represents them.</div>
+        <div class="project-highlight">Lower reconstruction error than AWQ · Co-authored arXiv paper · Feb 2026</div>
+        <div class="tags"><span class="tag">LLM Quantization</span><span class="tag">PTQ</span><span class="tag">AWQ</span><span class="tag">PyTorch</span><span class="tag">Hugging Face Transformers</span></div>
+        <div class="project-links"><a href="https://arxiv.org/abs/2603.00364" target="_blank" class="pill-link">arXiv ↗</a><a href="https://github.com/Athul-R/dist-quant" target="_blank" class="pill-link">GitHub ↗</a><a href="https://github.com/mahi397/mahimasachdeva.github.io/blob/main/NLP/nlp_poster-1.pdf" target="_blank" class="pill-link">Poster ↗</a></div>
+      </div>
+
+      <div class="project-card reveal">
+        <div class="project-name">Scaling BERT4Rec Training Efficiency</div>
+        <div class="project-desc">Scaled the BERT4Rec sequential recommender from 85M to 430M parameters on Amazon Electronics and profiled training across NVIDIA A100, V100 and L4 GPUs. Combining mixed precision (AMP) with torch.compile cut step time on the 130M model from 278 ms to 58 ms and peak memory from 11.2 GB to 7.2 GB. Also implemented instance-wise LoRA (iLoRA), training under 1% of parameters at 2.85 GB peak memory.</div>
+        <div class="project-highlight">278 → 58 ms step time · 11.2 → 7.2 GB peak memory · &lt;1% trainable params with iLoRA</div>
+        <div class="tags"><span class="tag">PyTorch</span><span class="tag">AMP</span><span class="tag">torch.compile</span><span class="tag">iLoRA</span><span class="tag">DDP</span><span class="tag">Profiling</span></div>
+        <div class="project-links"><a href="https://github.com/mahi397/Optimizing-Transformer-based-Sequential-RecommenderSystems" target="_blank" class="pill-link">GitHub ↗</a><a href="https://github.com/mahi397/mahimasachdeva.github.io/blob/main/HPML/ms15532ProjectReport.pdf" target="_blank" class="pill-link">Report ↗</a><a href="https://github.com/mahi397/mahimasachdeva.github.io/blob/main/HPML/Optimizing%20Transformer-based%20Sequential%20Recommender%20Systems.pdf" target="_blank" class="pill-link">Slides ↗</a></div>
       </div>
 
       <div class="project-card reveal">
         <div class="project-name">Edit-REPA: Representation-Aligned Diffusion for Image Editing</div>
-        <div class="project-desc">Identified a representation bottleneck in instruction-based diffusion editors: early timesteps operate on heavily corrupted latents, causing semantic drift and structural collapse before the edit is applied. Proposed Edit-REPA, which anchors U-Net mid-block features to frozen pretrained encoders (DINOv2 for structure, SigLIP/CLIP for semantics) during fine-tuning of InstructPix2Pix. Training converged stably with cosine alignment plateauing at ~0.8, and qualitative results show reduced drift and better global structure preservation vs. the unaligned baseline. Extended the framework design to a PixArt-α DiT editor and Conditional Flow Matching objectives.</div>
-        <div class="project-highlight">Stable alignment (cosine sim ~0.8) · Qualitative drift reduction · Novel application of REPA to editing</div>
-        <div class="tags">
-          <span class="tag">Diffusion Models</span><span class="tag">InstructPix2Pix</span><span class="tag">DINOv2</span><span class="tag">SigLIP</span><span class="tag">PyTorch</span><span class="tag">PixArt-α</span><span class="tag">Flow Matching</span><span class="tag">Computer Vision</span>
-        </div>
-        <div style="margin-top:1.25rem; display:flex; gap:0.75rem; flex-wrap:wrap;">
-          <a href="https://github.com/mahi397/EditREPA" target="_blank" style="font-family:'DM Mono',monospace;font-size:0.72rem;color:var(--accent);border:1px solid var(--accent);padding:0.3rem 0.85rem;border-radius:100px;text-decoration:none;letter-spacing:0.06em;transition:background 0.2s;" onmouseover="this.style.background='rgba(110,231,183,0.1)'" onmouseout="this.style.background='transparent'">GitHub ↗</a>
-          <a href="https://github.com/mahi397/mahimasachdeva.github.io/blob/main/CV/AdvCV_Final_project_report.pdf" target="_blank" id="editrepa-report" style="font-family:'DM Mono',monospace;font-size:0.72rem;color:var(--accent);border:1px solid var(--accent);padding:0.3rem 0.85rem;border-radius:100px;text-decoration:none;letter-spacing:0.06em;transition:background 0.2s;" onmouseover="this.style.background='rgba(110,231,183,0.1)'" onmouseout="this.style.background='transparent'">Report ↗</a>
-          <a href="https://github.com/mahi397/mahimasachdeva.github.io/blob/main/CV/EditREPA.pdf" target="_blank" id="editrepa-slides" style="font-family:'DM Mono',monospace;font-size:0.72rem;color:var(--accent);border:1px solid var(--accent);padding:0.3rem 0.85rem;border-radius:100px;text-decoration:none;letter-spacing:0.06em;transition:background 0.2s;" onmouseover="this.style.background='rgba(110,231,183,0.1)'" onmouseout="this.style.background='transparent'">Slides ↗</a>
-        </div>
+        <div class="project-desc">Team project applying representation alignment (REPA) to instruction-based image editing, where editors often change parts of the scene they should leave alone. I fine-tuned InstructPix2Pix (Stable Diffusion v1.5) for 80K steps with an added loss that aligns U-Net mid-block features to a frozen CLIP vision encoder. Training stayed stable, alignment plateaued at ~0.8 cosine similarity, and side-by-side edits preserved scene structure better than the unaligned baseline.</div>
+        <div class="project-highlight">Qualitative proof of concept · ~0.8 feature alignment · 80K fine-tuning steps</div>
+        <div class="tags"><span class="tag">Diffusion Models</span><span class="tag">InstructPix2Pix</span><span class="tag">Stable Diffusion</span><span class="tag">CLIP</span><span class="tag">PyTorch</span><span class="tag">Diffusers</span></div>
+        <div class="project-links"><a href="https://github.com/mahi397/mahimasachdeva.github.io/blob/main/CV/AdvCV_Final_project_report.pdf" target="_blank" class="pill-link">Report ↗</a><a href="https://github.com/mahi397/mahimasachdeva.github.io/blob/main/CV/EditREPA.pdf" target="_blank" class="pill-link">Slides ↗</a></div>
       </div>
 
       <div class="project-card reveal">
-        <div class="project-name">Optimizing Transformer-based Sequential Recommender Systems</div>
-        <div class="project-desc">Studied the effect of system-level optimizations on training efficiency of BERT4Rec scaled from 5M to 430M parameters, across NVIDIA A100, V100, and L4 GPUs. Focus was on iLoRA (instance-wise LoRA) and mixed-precision training: AMP alone reduced peak memory from 11.2 GB to 7.2 GB on the 130M model. On the 430M model, iLoRA+AMP+torch.compile (reduce-overhead) cut step time from 470ms to 130ms and memory from 10.4 GB to 2.85 GB — while using only 0.96% of trainable parameters and retaining recommendation accuracy.</div>
-        <div class="project-highlight">72% step time reduction (iLoRA) · 70% memory reduction · 99% fewer trainable params</div>
-        <div class="tags">
-          <span class="tag">PyTorch</span><span class="tag">AMP</span><span class="tag">torch.compile</span><span class="tag">iLoRA</span><span class="tag">BERT4Rec</span><span class="tag">WandB</span><span class="tag">CUDA</span><span class="tag">DistributedDataParallel</span>
-        </div>
-        <div style="margin-top:1.25rem; display:flex; gap:0.75rem; flex-wrap:wrap;">
-          <a href="https://github.com/mahi397/Optimizing-Transformer-based-Sequential-RecommenderSystems" target="_blank" style="font-family:'DM Mono',monospace;font-size:0.72rem;color:var(--accent);border:1px solid var(--accent);padding:0.3rem 0.85rem;border-radius:100px;text-decoration:none;letter-spacing:0.06em;transition:background 0.2s;" onmouseover="this.style.background='rgba(110,231,183,0.1)'" onmouseout="this.style.background='transparent'">GitHub ↗</a>
-          <a href="https://github.com/mahi397/mahimasachdeva.github.io/blob/main/HPML/ms15532ProjectReport.pdf" target="_blank" id="bert4rec-report" style="font-family:'DM Mono',monospace;font-size:0.72rem;color:var(--accent);border:1px solid var(--accent);padding:0.3rem 0.85rem;border-radius:100px;text-decoration:none;letter-spacing:0.06em;transition:background 0.2s;" onmouseover="this.style.background='rgba(110,231,183,0.1)'" onmouseout="this.style.background='transparent'">Report ↗</a>
-          <a href="https://github.com/mahi397/mahimasachdeva.github.io/blob/main/HPML/Optimizing%20Transformer-based%20Sequential%20Recommender%20Systems.pdf" target="_blank" id="bert4rec-slides" style="font-family:'DM Mono',monospace;font-size:0.72rem;color:var(--accent);border:1px solid var(--accent);padding:0.3rem 0.85rem;border-radius:100px;text-decoration:none;letter-spacing:0.06em;transition:background 0.2s;" onmouseover="this.style.background='rgba(110,231,183,0.1)'" onmouseout="this.style.background='transparent'">Slides ↗</a>
-        </div>
-      </div>
-
-      <div class="project-card reveal">
-        <div class="project-name">Adversarial Attacks on ImageNet Models</div>
-        <div class="project-desc">Implemented FGSM, PGD, and patch-based adversarial attacks on a pretrained ResNet-34 (ImageNet baseline: 76% Top-1), all constrained to ε=0.02 pixel-space perturbation. FGSM dropped Top-1 to 3.4% in a single gradient step; PGD (20 iterations, α=0.005) achieved complete model failure at 0% Top-1 with an 87.4% attack success rate. A localized patch attack (64×64, ε=0.5, 50 iterations) achieved 91% success rate. Also evaluated cross-architecture transferability to DenseNet-121 — PGD transferred most effectively (45.5%), while patch attacks transferred poorly (25.5%), exposing the role of architecture-specific spatial representations in adversarial robustness.</div>
-        <div class="project-highlight">PGD: 76% → 0% Top-1 · 91% patch success · 45.5% cross-arch transfer rate</div>
-        <div class="tags">
-          <span class="tag">PyTorch</span><span class="tag">Adversarial ML</span><span class="tag">FGSM</span><span class="tag">PGD</span><span class="tag">ResNet-34</span><span class="tag">DenseNet-121</span><span class="tag">ImageNet</span>
-        </div>
-        <div style="margin-top:1.25rem; display:flex; gap:0.75rem; flex-wrap:wrap;">
-          <a href="https://github.com/mahi397/Jailbreaking-Deep-Models" target="_blank" style="font-family:'DM Mono',monospace;font-size:0.72rem;color:var(--accent);border:1px solid var(--accent);padding:0.3rem 0.85rem;border-radius:100px;text-decoration:none;letter-spacing:0.06em;transition:background 0.2s;" onmouseover="this.style.background='rgba(110,231,183,0.1)'" onmouseout="this.style.background='transparent'">GitHub ↗</a>
-        </div>
-      </div>
-
-      <div class="project-card reveal">
-        <div class="project-name">LLM Fine-tuning with LoRA — AG News Classification</div>
-        <div class="project-desc">Fine-tuned RoBERTa on AG News (4-class news topic classification) using only LoRA adapters, under a strict 1M trainable parameter budget. LoRA injects low-rank matrices into frozen RoBERTa weights, enabling task adaptation without full fine-tuning. Achieved 94.15% validation accuracy while staying well within the parameter constraint.</div>
-        <div class="project-highlight">94.15% val accuracy · RoBERTa + LoRA · ≤1M trainable params · AG News</div>
-        <div class="tags">
-          <span class="tag">PyTorch</span><span class="tag">LoRA</span><span class="tag">Transformers</span><span class="tag">NLP</span><span class="tag">Text Classification</span><span class="tag">PEFT</span>
-        </div>
-        <div style="margin-top:1.25rem; display:flex; gap:0.75rem; flex-wrap:wrap;">
-          <a href="https://github.com/mahi397/Finetuning-with-LoRA" target="_blank" style="font-family:'DM Mono',monospace;font-size:0.72rem;color:var(--accent);border:1px solid var(--accent);padding:0.3rem 0.85rem;border-radius:100px;text-decoration:none;letter-spacing:0.06em;transition:background 0.2s;" onmouseover="this.style.background='rgba(110,231,183,0.1)'" onmouseout="this.style.background='transparent'">GitHub ↗</a>
-        </div>
-      </div>
-
-      <div class="project-card reveal">
-        <div class="project-name">ResNet-34 CIFAR-10 Classification</div>
-        <div class="project-desc">Kaggle competition: design the highest-accuracy ResNet variant on CIFAR-10 under a strict 5M parameter budget, trained from scratch. Built a modified ResNet-34 (4.5M params) tuned with SGD + cosine annealing LR, weight decay, and dropout (p=0.2) over 100 epochs. Achieved 94.13% validation accuracy — exceeding the 90%+ target set by the course and placing in the top tier of the competition.</div>
-        <div class="project-highlight">94.13% val accuracy · 4.5M params · ≤5M param budget · Top-tier Kaggle finish</div>
-        <div class="tags">
-          <span class="tag">PyTorch</span><span class="tag">ResNet</span><span class="tag">Computer Vision</span><span class="tag">CIFAR-10</span><span class="tag">SGD</span><span class="tag">Cosine Annealing</span>
-        </div>
-        <div style="margin-top:1.25rem; display:flex; gap:0.75rem; flex-wrap:wrap;">
-          <a href="https://github.com/mahi397/Employing-ResNet-Architecture-for-CIFAR-10-Classification" target="_blank" style="font-family:'DM Mono',monospace;font-size:0.72rem;color:var(--accent);border:1px solid var(--accent);padding:0.3rem 0.85rem;border-radius:100px;text-decoration:none;letter-spacing:0.06em;transition:background 0.2s;" onmouseover="this.style.background='rgba(110,231,183,0.1)'" onmouseout="this.style.background='transparent'">GitHub ↗</a>
-        </div>
-      </div>
-
-      <!-- <div class="project-card reveal">
-        <div class="project-name">RAG-VLM</div>
-        <div class="project-desc">Multimodal RAG pipeline combining CLIP embeddings, FAISS vector retrieval, and a lightweight VLM to answer image & text queries with grounded evidence.</div>
-        <div class="project-highlight">↑ 25% Recall@10 over BM25 baseline</div>
-        <div class="tags">
-          <span class="tag">Python</span><span class="tag">CLIP</span><span class="tag">FAISS</span><span class="tag">VLM</span><span class="tag">RAG</span>
-        </div>
-      </div>
-
-      <div class="project-card reveal">
-        <div class="project-name">Multimodal Search — Pruned & Quantized</div>
-        <div class="project-desc">Structured pruning and post-training quantization applied to a multimodal reranker, drastically reducing model size and latency with minimal accuracy loss.</div>
-        <div class="project-highlight">3× smaller · 50% lower p95 latency · 98% Recall@10 retained</div>
-        <div class="tags">
-          <span class="tag">PyTorch</span><span class="tag">Quantization</span><span class="tag">Pruning</span><span class="tag">ONNX</span>
-        </div>
-      </div>
-
-      <div class="project-card reveal">
-        <div class="project-name">Exam Accessibility Assistant</div>
-        <div class="project-desc">Offline exam reader providing accommodation for students with reading impairments — 100% offline with on-device OCR, TTS, voice commands, and answer sheet export.</div>
-        <div class="project-highlight">Fully offline · Real-time TTS · Voice command input</div>
-        <div class="tags">
-          <span class="tag">Python</span><span class="tag">OCR</span><span class="tag">TTS</span><span class="tag">Accessibility</span>
-        </div>
-      </div> -->
-
-      <div class="project-card reveal">
-        <div class="project-name">CruiseInc</div>
-        <div class="project-desc">Full-stack cruise booking platform with robust backend security, admin dashboard, and seamless end-to-end booking — query performance optimized via caching and indexing.</div>
-        <div class="project-highlight">↑ 40% query performance via caching & DB indexing</div>
-        <div class="tags">
-          <span class="tag">React</span><span class="tag">Django</span><span class="tag">MySQL</span>
-        </div>
-        <div style="margin-top:1.25rem; display:flex; gap:0.75rem; flex-wrap:wrap;">
-          <a href="https://github.com/mahi397/nice" target="_blank" style="font-family:'DM Mono',monospace;font-size:0.72rem;color:var(--accent);border:1px solid var(--accent);padding:0.3rem 0.85rem;border-radius:100px;text-decoration:none;letter-spacing:0.06em;transition:background 0.2s;" onmouseover="this.style.background='rgba(110,231,183,0.1)'" onmouseout="this.style.background='transparent'">GitHub ↗</a>
-        </div>
+        <div class="project-name">More projects</div>
+        <ul class="more-list project-desc">
+          <li><a href="https://github.com/mahi397/Jailbreaking-Deep-Models" target="_blank" class="pill-link">GitHub ↗</a>&nbsp; <strong>Adversarial attacks on ImageNet models:</strong> FGSM, PGD and patch attacks on ResNet-34; PGD took Top-1 from 76% to 0%.</li>
+          <li><a href="https://github.com/mahi397/Finetuning-with-LoRA" target="_blank" class="pill-link">GitHub ↗</a>&nbsp; <strong>RoBERTa + LoRA on AG News:</strong> 94.15% validation accuracy with under 1M trainable parameters.</li>
+          <li><a href="https://github.com/mahi397/Employing-ResNet-Architecture-for-CIFAR-10-Classification" target="_blank" class="pill-link">GitHub ↗</a>&nbsp; <strong>ResNet on CIFAR-10:</strong> 94.13% validation accuracy with a 4.5M-parameter model trained from scratch.</li>
+          <li><a href="https://github.com/mahi397/nice" target="_blank" class="pill-link">GitHub ↗</a>&nbsp; <strong>CruiseInc:</strong> full-stack cruise booking platform (React, Django, MySQL).</li>
+        </ul>
       </div>
 
     </div>
@@ -765,45 +681,22 @@
 
       <div class="skill-card reveal">
         <div class="skill-card-title">Languages</div>
-        <div class="tags">
-          <span class="tag">Java</span><span class="tag">Python</span><span class="tag">Kotlin</span>
-          <span class="tag">JavaScript</span><span class="tag">TypeScript</span><span class="tag">SQL</span>
-        </div>
+        <div class="tags"><span class="tag">Python</span><span class="tag">Java</span><span class="tag">TypeScript</span><span class="tag">JavaScript</span><span class="tag">SQL</span></div>
       </div>
 
       <div class="skill-card reveal">
-        <div class="skill-card-title">Frameworks</div>
-        <div class="tags">
-          <span class="tag">Flask</span><span class="tag">Django</span><span class="tag">React</span>
-          <span class="tag">ExpressJS</span><span class="tag">PyTorch</span>
-        </div>
+        <div class="skill-card-title">ML &amp; LLMs</div>
+        <div class="tags"><span class="tag">PyTorch</span><span class="tag">Hugging Face Transformers</span><span class="tag">Ray Train</span><span class="tag">Optuna</span><span class="tag">LoRA</span><span class="tag">Quantization (AWQ, PTQ)</span><span class="tag">Mixed Precision</span><span class="tag">torch.compile</span><span class="tag">TorchScript</span></div>
       </div>
 
       <div class="skill-card reveal">
-        <div class="skill-card-title">AI / ML</div>
-        <div class="tags">
-          <span class="tag">Deep Learning</span><span class="tag">NLP</span><span class="tag">LLMs</span>
-          <span class="tag">RAG</span><span class="tag">Vector DBs</span><span class="tag">Computer Vision</span>
-          <span class="tag">Transformers</span><span class="tag">Knowledge Distillation</span>
-        </div>
+        <div class="skill-card-title">MLOps &amp; Cloud</div>
+        <div class="tags"><span class="tag">AWS SageMaker</span><span class="tag">AWS CDK</span><span class="tag">S3</span><span class="tag">Docker</span><span class="tag">MLflow</span><span class="tag">PostgreSQL</span><span class="tag">CI/CD</span></div>
       </div>
 
       <div class="skill-card reveal">
-        <div class="skill-card-title">Cloud & Infra</div>
-        <div class="tags">
-          <span class="tag">AWS</span><span class="tag">S3</span><span class="tag">Lambda</span>
-          <span class="tag">SageMaker</span><span class="tag">Docker</span><span class="tag">Kubernetes</span>
-          <span class="tag">CI/CD</span><span class="tag">Microservices</span>
-        </div>
-      </div>
-
-      <div class="skill-card reveal">
-        <div class="skill-card-title">Model Optimization</div>
-        <div class="tags">
-          <span class="tag">CUDA</span><span class="tag">cuDNN</span><span class="tag">TorchScript</span>
-          <span class="tag">ONNX</span><span class="tag">Pruning</span><span class="tag">Quantization</span>
-          <span class="tag">Mixed-Precision</span>
-        </div>
+        <div class="skill-card-title">Web</div>
+        <div class="tags"><span class="tag">React</span></div>
       </div>
 
     </div>
@@ -824,7 +717,7 @@
         <div class="edu-school">Tandon School of Engineering</div>
         <div class="edu-meta">
           <span>Sep 2024 – May 2026</span>
-          <!-- <span class="gpa">GPA: 3.9 / 4.0</span> -->
+          <span class="gpa">GPA: 3.9 / 4.0</span>
         </div>
       </div>
       <div class="edu-card reveal">
@@ -833,7 +726,6 @@
         <div class="edu-school">Netaji Subhas Institute of Technology</div>
         <div class="edu-meta">
           <span>Aug 2016 – Jun 2020</span>
-          <!-- <span class="gpa">GPA: 3.5 / 4.0</span> -->
         </div>
       </div>
     </div>
@@ -911,7 +803,7 @@
   <div class="container">
     <p class="section-label reveal">Let's connect</p>
     <h2 class="section-title reveal">Get in touch</h2>
-    <p class="contact-tagline reveal">Open to full-time SWE roles — feel free to reach out.</p>
+    <p class="contact-tagline reveal">Happy to talk about backend and applied AI work.</p>
     <div class="contact-links reveal">
       <a href="mailto:ms15532@nyu.edu" class="btn btn-primary">ms15532@nyu.edu</a>
       <a href="https://www.linkedin.com/in/mahimasachdeva" target="_blank" class="btn btn-outline">LinkedIn ↗</a>
@@ -926,7 +818,7 @@
   </div>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
   // Scroll reveal
   const reveals = document.querySelectorAll('.reveal');
   const observer = new IntersectionObserver((entries) => {
